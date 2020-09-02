@@ -1,12 +1,20 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 
 export const useFetch = (url) => {    
+
+    const isMounted = useRef(true);
     
     const [state, setState] = useState({
         data:null,
         loading:true,
         error:null
     });
+
+    useEffect(()=>{
+        return ()=>{
+            isMounted.current=false;
+        }
+    },[])
 
     useEffect(() => {
 
@@ -18,12 +26,26 @@ export const useFetch = (url) => {
            return resp.json();
        })
        .then(data=>{
-           setState({
-               loading:false,
-               error:null,
-               data:data
 
-           })
+            setTimeout(() => {//Este setTimeOut es solo para ilustrar el error de montado y desmontado de componentes
+
+                if(isMounted.current){
+                    setState({
+                        loading:false,
+                        error:null,
+                        data:data
+         
+                    })
+                }
+                else{
+                    console.log('setState no se llamo')
+                }               
+                
+            }, 2000);
+
+           
+
+
        });
     }, [url])
 
