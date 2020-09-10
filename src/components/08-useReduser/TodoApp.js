@@ -29,6 +29,26 @@ export const TodoApp = () => {
 
     }, [todos])
 
+    const hadleDelete = (todoId) => {
+
+        //crear la accion
+        const action = {
+            type: 'delete',
+            payload: todoId
+        }
+
+        //dispatch
+        dispatch(action);
+    }
+
+
+    const hadleToogle = (todoId) => {
+        dispatch({
+            type: 'toggle',
+            payload: todoId
+        })
+    }
+
     const { description } = formValues;
 
     console.log(description)
@@ -67,14 +87,23 @@ export const TodoApp = () => {
                 <div className="col-7">
                     Todos
 
+                    {/* TodoList, todos */}
                     <ul className='list-group list-group-flush'>
                         {todos.map((todo, index) => (
+                            /*TodoListItem,todo,index, handleDelete,handleToggle*/ 
                             <li
                                 key={todo.id}
                                 className='list-group-item'
                             >
-                                <p className="text-center complete">{index + 1}. {todo.desc}</p>
-                                <button className="btn btn-danger">Borrar</button>
+                                <p
+                                    className={`${todo.done && 'complete'}`}
+                                    onClick={() => hadleToogle(todo.id)}
+                                >{index + 1}. {todo.desc}</p>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => { hadleDelete(todo.id) }}
+
+                                >Borrar</button>
                             </li>
 
                         ))}
