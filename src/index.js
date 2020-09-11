@@ -15,11 +15,12 @@ import ReactDOM from 'react-dom';
 //import { CallBackHook } from './components/06-memos/CallBackHook';
 //import { Padre } from './components/07-tarea-memo/Padre';
 import { TodoApp } from './components/08-useReduser/TodoApp';
+import { MainApp } from './components/09-useContext/MainApp';
 //import './counter.css';
 
 ReactDOM.render(
   
-  <TodoApp/>,
+  <MainApp/>,
   document.getElementById('root')
 );
 
